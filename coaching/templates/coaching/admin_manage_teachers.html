@@ -1,0 +1,36 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Manage Teachers{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;margin-top:40px;">
+    <h1 style="color:#f59e42;font-size:2em;">Manage Teacher Logins</h1>
+    <hr>
+    <table style="width:100%;border-collapse:collapse;margin-top:24px;">
+        <thead>
+            <tr style="background:#fbbf24;color:#fff;">
+                <th style="padding:10px 6px;">Username</th>
+                <th style="padding:10px 6px;">Email</th>
+                <th style="padding:10px 6px;">Active</th>
+                <th style="padding:10px 6px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+            <tr style="background:#fff;border-bottom:1px solid #f3f4f6;">
+                <td style="padding:10px 6px;">{{ teacher.username }}</td>
+                <td style="padding:10px 6px;">{{ teacher.email }}</td>
+                <td style="padding:10px 6px;">{% if teacher.is_active %}Yes{% else %}No{% endif %}</td>
+                <td style="padding:10px 6px;">
+                    <!-- Future: Add edit/reset/delete links here -->
+                    <a href="/admin/auth/user/{{ teacher.id }}/change/" style="color:#6366f1;text-decoration:underline;">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" style="text-align:center;padding:18px;">No teachers found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top:24px;">
+        <a href="/admin/auth/user/add/" style="background:linear-gradient(90deg,#6366f1 60%,#22d3ee 100%);color:#fff;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:600;">Add New Teacher</a>
+    </div>
+</div>
+{% endblock %}

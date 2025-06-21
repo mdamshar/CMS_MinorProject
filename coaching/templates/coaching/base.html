@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Coaching Management{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .navbar {
+            width: 100%;
+            background: #6366f1;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8vw;
+            box-shadow: 0 2px 12px rgba(99,102,241,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            font-size: 1.6em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #22d3ee;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.2s;
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
+        .nav-links a:hover, .nav-links .cta {
+            background: #22d3ee;
+            color: #fff;
+        }
+        .nav-links a.active, .logo a.active {
+            background: #22d3ee;
+            color: #fff !important;
+        }
+        /* Responsive Navbar */
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            margin-left: 18px;
+        }
+        .navbar-toggle span {
+            display: block;
+            width: 28px;
+            height: 4px;
+            margin: 4px 0;
+            background: #fff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 14px 3vw;
+            }
+            .nav-links a {
+                margin-left: 16px;
+                font-size: 1em;
+                padding: 8px 10px;
+            }
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 1vw;
+            }
+            .navbar-toggle {
+                display: flex;
+            }
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+                background: #6366f1;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 100;
+                box-shadow: 0 4px 16px rgba(99,102,241,0.13);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                margin: 0;
+                padding: 14px 24px;
+                width: 100%;
+                border-radius: 0;
+                border-bottom: 1px solid #818cf8;
+                text-align: left;
+            }
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 1em;
+            color: #64748b;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 24px 0 12px 0;
+            background: transparent;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a href="/" class="{% if request.path == '/' %}active{% endif %}">Coaching<span>MS</span></a></div>
+        <div class="navbar-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+            <a href="/courses/" class="{% if request.path == '/courses/' %}active{% endif %}">Courses</a>
+            <a href="/students/" class="{% if request.path == '/students/' %}active{% endif %}">Students</a>
+            <a href="/teachers/" class="{% if request.path == '/teachers/' %}active{% endif %}">Teachers</a>
+            <a href="/admin/" class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a>
+            <a href="/contact/" class="cta {% if request.path == '/contact/' %}active{% endif %}">Contact</a>
+        </div>
+    </nav>
+    {% block content %}
+    <!-- Page content goes here -->
+    {% endblock %}
+    <div class="footer">
+        &copy; {{ now|date:"Y" }} Coaching Management System. All rights reserved.
+    </div>
+    {% block extra_body %}{% endblock %}
+</body>
+</html>

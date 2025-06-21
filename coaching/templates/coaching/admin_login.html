@@ -1,0 +1,145 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Admin Login{% endblock %}
+{% block head %}
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 70px auto 0 auto;
+        background: rgba(255,255,255,0.98);
+        border-radius: 22px;
+        box-shadow: 0 8px 32px rgba(251,191,36,0.13);
+        padding: 38px 30px 30px 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, #fbbf24 40%, transparent 70%);
+        opacity: 0.13;
+        z-index: 0;
+    }
+    .login-container::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, #f59e42 40%, transparent 70%);
+        opacity: 0.13;
+        z-index: 0;
+    }
+    .login-title {
+        font-size: 2em;
+        color: #f59e42;
+        font-weight: bold;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+        z-index: 1;
+        position: relative;
+    }
+    .login-icon {
+        font-size: 2.5em;
+        margin-bottom: 8px;
+        color: #f59e42;
+        z-index: 1;
+        position: relative;
+    }
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 18px;
+        z-index: 1;
+        position: relative;
+    }
+    .login-form input {
+        padding: 13px 16px;
+        border-radius: 8px;
+        border: 1.5px solid #fde68a;
+        font-size: 1.08em;
+        background: #f8fafc;
+        transition: border 0.2s;
+    }
+    .login-form input:focus {
+        border: 1.5px solid #f59e42;
+        outline: none;
+        background: #fff;
+    }
+    .login-btn {
+        background: linear-gradient(90deg,#f59e42 60%,#fbbf24 100%);
+        color: #fff;
+        font-weight: 600;
+        padding: 13px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.13em;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        box-shadow: 0 2px 8px rgba(251,191,36,0.10);
+    }
+    .login-btn:hover {
+        background: linear-gradient(90deg,#ea580c 60%,#f59e42 100%);
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 4px 16px rgba(251,191,36,0.13);
+    }
+    .login-error {
+        color: #ef4444;
+        margin-bottom: 16px;
+        font-weight: bold;
+        z-index: 1;
+        position: relative;
+    }
+    .login-back {
+        margin-top: 18px;
+        font-size: 0.98em;
+        z-index: 1;
+        position: relative;
+    }
+    .login-back a {
+        color: #f59e42;
+        text-decoration: underline;
+        transition: color 0.2s;
+    }
+    .login-back a:hover {
+        color: #ea580c;
+    }
+    @media (max-width: 500px) {
+        .login-container {
+            padding: 18px 4vw 18px 4vw;
+        }
+        .login-title {
+            font-size: 1.3em;
+        }
+        .login-icon {
+            font-size: 2em;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="login-container">
+    <div class="login-icon">🛡️</div>
+    <div class="login-title">Admin Login</div>
+    <hr style="width:60%;border:1px solid #f59e42;margin:18px auto 18px auto;">
+    {% if error %}
+        <div class="login-error">{{ error }}</div>
+    {% endif %}
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="login-back">
+        <a href="/">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

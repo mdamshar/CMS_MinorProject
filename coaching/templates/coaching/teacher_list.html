@@ -1,0 +1,35 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Teacher Panel{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Teacher Dashboard</h1>
+    <hr>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+        <div style="background:#f3f4f6;border-radius:16px;box-shadow:0 2px 12px #6366f122;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#6366f1;">🗓️</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Mark & Manage Attendance</div>
+            <a href="#" class="panel-link" style="margin-top:8px;">Attendance</a>
+        </div>
+        <div style="background:#f0f9ff;border-radius:16px;box-shadow:0 2px 12px #22d3ee22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#22d3ee;">📊</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">View Student Progress & Analytics</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#22d3ee 60%,#6366f1 100%);">Analytics</a>
+        </div>
+        <div style="background:#fef9c3;border-radius:16px;box-shadow:0 2px 12px #fde04722;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#fde047;">📤</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Upload & Share Study Material</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#fde047 60%,#6366f1 100%);color:#222;">Upload</a>
+        </div>
+        <div style="background:#f3e8ff;border-radius:16px;box-shadow:0 2px 12px #a78bfa22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#a78bfa;">💬</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Interact with Students via Messages</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#a78bfa 60%,#6366f1 100%);">Messages</a>
+        </div>
+        <div style="background:#f0fdf4;border-radius:16px;box-shadow:0 2px 12px #22c55e22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#22c55e;">📝</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Assignment & Grading Tools</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#22c55e 60%,#6366f1 100%);">Assignments</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

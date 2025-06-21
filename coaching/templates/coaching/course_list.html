@@ -1,0 +1,14 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Courses{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Course List</h1>
+    <ul>
+        {% for course in courses %}
+            <li>{{ course.name }} - {{ course.description }}</li>
+        {% empty %}
+            <li>No courses available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

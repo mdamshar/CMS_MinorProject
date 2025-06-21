@@ -1,0 +1,36 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Student Panel{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#22d3ee;font-size:2em;">Student Dashboard</h1>
+    <hr>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+        <div style="background:#f0f9ff;border-radius:16px;box-shadow:0 2px 12px #22d3ee22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#22d3ee;">📚</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">View & Enroll in Courses</div>
+            <a href="/courses/" class="panel-link" style="margin-top:8px;">Browse Courses</a>
+        </div>
+        <div style="background:#f1f5f9;border-radius:16px;box-shadow:0 2px 12px #38bdf822;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#38bdf8;">📈</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Check Attendance & Progress</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#38bdf8 60%,#22d3ee 100%);">View Progress</a>
+        </div>
+        <div style="background:#f0fdf4;border-radius:16px;box-shadow:0 2px 12px #22c55e22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#22c55e;">📥</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Download Resources & Assignments</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#22c55e 60%,#38bdf8 100%);">Download</a>
+        </div>
+        <div style="background:#fef9c3;border-radius:16px;box-shadow:0 2px 12px #fde04722;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#fde047;">⏱️</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Track Performance in Real Time</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#fde047 60%,#38bdf8 100%);color:#222;">Track Now</a>
+        </div>
+        <div style="background:#f3e8ff;border-radius:16px;box-shadow:0 2px 12px #a78bfa22;padding:28px 22px;min-width:220px;flex:1 1 220px;max-width:320px;text-align:center;">
+            <div style="font-size:2em;color:#a78bfa;">🔔</div>
+            <div style="font-weight:bold;font-size:1.15em;margin-bottom:8px;">Announcements & Notifications</div>
+            <a href="#" class="panel-link" style="margin-top:8px;background:linear-gradient(90deg,#a78bfa 60%,#818cf8 100%);">View All</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

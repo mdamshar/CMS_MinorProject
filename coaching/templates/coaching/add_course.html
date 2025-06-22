@@ -1,0 +1,29 @@
+{% extends 'coaching/base.html' %}
+{% block content %}
+<div class="container" style="max-width: 540px; margin: 48px auto 0 auto;">
+    <div style="background: #fff; border-radius: 1.5rem; box-shadow: 0 8px 32px rgba(99,102,241,0.13); padding: 38px 32px 32px 32px;">
+        <h2 style="font-size:2.1em; font-weight: 700; color: #6366f1; text-align:center; margin-bottom: 8px; letter-spacing: 1px;">Add New Course</h2>
+        <p style="color:#64748b; text-align:center; margin-bottom: 28px; font-size:1.1em;">Fill in the details to create a new course for students.</p>
+        {% if error %}
+            <div style="background:#fee2e2;color:#b91c1c;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;text-align:center;">{{ error }}</div>
+        {% endif %}
+        {% if success %}
+            <div style="background:#d1fae5;color:#065f46;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;text-align:center;">{{ success }}</div>
+        {% endif %}
+        <form method="post" autocomplete="off" style="margin-top: 0;">
+            {% csrf_token %}
+            <div style="margin-bottom: 22px;">
+                <label for="name" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Course Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter course name" required style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.1em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);">
+            </div>
+            <div style="margin-bottom: 28px;">
+                <label for="description" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Description</label>
+                <textarea id="description" name="description" rows="3" placeholder="Course description" style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.08em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);"></textarea>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button type="submit" style="background: linear-gradient(90deg,#6366f1 60%,#22d3ee 100%); color: #fff; font-weight: 700; font-size: 1.15em; padding: 12px 38px; border: none; border-radius: 10px; box-shadow: 0 4px 16px rgba(99,102,241,0.13); transition: background 0.2s, box-shadow 0.2s; cursor:pointer;">Add Course</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

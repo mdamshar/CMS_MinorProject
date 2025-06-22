@@ -1,0 +1,35 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Messages{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+<div class="container" style="max-width:600px;margin:40px auto 0 auto;">
+    <div class="text-center mb-4">
+        <h1 style="color:#7c3aed;font-size:2.2em;font-weight:700;letter-spacing:-1px;">Messages</h1>
+        <div style="height:4px;width:60px;background:#a78bfa;margin:0.5rem auto 0.5rem auto;border-radius:2px;"></div>
+        <p class="text-muted mb-0">View and send messages to your students</p>
+    </div>
+    <div style="background:linear-gradient(90deg,#f3e8ff 60%,#ede9fe 100%);border-radius:16px;padding:22px 18px 10px 18px;box-shadow:0 4px 24px #a78bfa22;">
+        {% for msg in messages %}
+        <div style="margin-bottom:18px;padding:14px 18px;background:#fff;border-radius:10px;box-shadow:0 2px 8px #a78bfa18;display:flex;align-items:center;">
+            <div style="background:#a78bfa;color:#fff;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:600;font-size:1.1em;margin-right:14px;">
+                {{ msg.from|slice:':1'|upper }}
+            </div>
+            <div>
+                <b style="color:#7c3aed;">{{ msg.from }}</b><br>
+                <span style="color:#444;">{{ msg.content }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info">No messages yet.</div>
+        {% endfor %}
+    </div>
+    <form method="post" style="margin-top:32px;background:#fff;border-radius:12px;box-shadow:0 2px 12px #a78bfa18;padding:24px 18px;">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="message" class="form-label fw-semibold" style="color:#7c3aed;">Send a message to students</label>
+            <textarea class="form-control" id="message" name="message" rows="2" style="border-radius:8px;border:1.5px solid #a78bfa;resize:none;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" style="background:#7c3aed;border:none;font-weight:600;letter-spacing:1px;">Send</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Study Materials{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Study Materials</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data" style="margin-bottom:24px;">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title" required style="margin-right:8px;">
+        <input type="text" name="description" placeholder="Description" style="margin-right:8px;">
+        <select name="course" required style="margin-right:8px;">
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="file" name="file" required style="margin-right:8px;">
+        <button type="submit" class="cta">Upload</button>
+    </form>
+    <table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:1rem;box-shadow:0 2px 12px #6366f122;">
+        <thead>
+            <tr style="background:#6366f1;color:#fff;">
+                <th style="padding:12px 8px;">Title</th>
+                <th style="padding:12px 8px;">Description</th>
+                <th style="padding:12px 8px;">Course</th>
+                <th style="padding:12px 8px;">File</th>
+                <th style="padding:12px 8px;">Uploaded By</th>
+                <th style="padding:12px 8px;">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mat in materials %}
+            <tr>
+                <td>{{ mat.title }}</td>
+                <td>{{ mat.description }}</td>
+                <td>{{ mat.course.name }}</td>
+                <td><a href="{{ mat.file.url }}" target="_blank">Download</a></td>
+                <td>{{ mat.uploaded_by.username }}</td>
+                <td>{{ mat.uploaded_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" style="text-align:center;">No study materials found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

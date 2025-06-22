@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -14,4 +15,20 @@ urlpatterns = [
     path('student-register/', views.student_register, name='student_register'),
     path('teacher-dashboard/', views.teacher_dashboard, name='teacher_dashboard'),
     path('student-dashboard/', views.student_dashboard, name='student_dashboard'),
+    path('add-course/', views.add_course, name='add_course'),
+    path('admin-login/', views.admin_login, name='admin_login'),
+    path('about/', views.about, name='about'),
+    path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('mark-attendance/', views.mark_attendance, name='mark_attendance'),
+    path('view-analytics/', views.view_analytics, name='view_analytics'),
+    path('upload-study-material/', views.upload_study_material, name='upload_study_material'),
+    path('assignments/', views.assignments_list, name='assignments_list'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('study-materials/', views.study_materials, name='study_materials'),
+    path('assignments/upload/', views.upload_assignment, name='upload_assignment'),
+    path('results/', views.results_view, name='results_view'),
+    path('results/upload/', views.upload_result, name='upload_result'),
+    path('announcements/', views.announcements_view, name='announcements_view'),
+    path('courses/edit/<int:course_id>/', views.edit_course, name='edit_course'),
+    path('courses/delete/<int:course_id>/', views.delete_course, name='delete_course'),
 ]

@@ -1,0 +1,25 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Upload Result{% endblock %}
+{% block content %}
+<div class="container" style="max-width:600px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Upload Result</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select name="student" required style="margin-bottom:8px;width:100%;">
+            {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select><br>
+        <select name="course" required style="margin-bottom:8px;width:100%;">
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="number" name="marks" placeholder="Marks" step="0.01" style="margin-bottom:8px;width:100%;"><br>
+        <input type="file" name="file" style="margin-bottom:8px;width:100%;"><br>
+        <textarea name="description" placeholder="Description" style="margin-bottom:8px;width:100%;"></textarea><br>
+        <button type="submit" class="cta">Upload</button>
+    </form>
+</div>
+{% endblock %}

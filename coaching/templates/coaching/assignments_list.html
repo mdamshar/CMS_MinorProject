@@ -1,0 +1,35 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Assignments{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Assignments</h1>
+    <hr>
+    <a href="{% url 'upload_assignment' %}" class="cta" style="margin-bottom:18px;display:inline-block;">Upload Assignment</a>
+    <table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:1rem;box-shadow:0 2px 12px #6366f122;">
+        <thead>
+            <tr style="background:#6366f1;color:#fff;">
+                <th style="padding:12px 8px;">Title</th>
+                <th style="padding:12px 8px;">Description</th>
+                <th style="padding:12px 8px;">Course</th>
+                <th style="padding:12px 8px;">File</th>
+                <th style="padding:12px 8px;">Due Date</th>
+                <th style="padding:12px 8px;">Assigned By</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in assignments %}
+            <tr>
+                <td>{{ a.title }}</td>
+                <td>{{ a.description }}</td>
+                <td>{{ a.course.name }}</td>
+                <td><a href="{{ a.file.url }}" target="_blank">Download</a></td>
+                <td>{{ a.due_date }}</td>
+                <td>{{ a.assigned_by.username }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" style="text-align:center;">No assignments found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

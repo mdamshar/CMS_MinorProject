@@ -1,0 +1,48 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Announcements{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Announcements</h1>
+    <hr>
+    {% if not is_student %}
+    <form method="post" enctype="multipart/form-data" style="margin-bottom:24px;">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title" required style="margin-right:8px;">
+        <textarea name="content" placeholder="Content" required style="margin-right:8px;"></textarea>
+        <input type="file" name="file" style="margin-right:8px;">
+        <label><input type="checkbox" name="for_all" checked> For All</label>
+        <select name="for_role" style="margin-left:8px;">
+            <option value="">--Role--</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit" class="cta">Post</button>
+    </form>
+    {% endif %}
+    <table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:1rem;box-shadow:0 2px 12px #6366f122;">
+        <thead>
+            <tr style="background:#6366f1;color:#fff;">
+                <th style="padding:12px 8px;">Title</th>
+                <th style="padding:12px 8px;">Content</th>
+                <th style="padding:12px 8px;">File</th>
+                <th style="padding:12px 8px;">By</th>
+                <th style="padding:12px 8px;">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in announcements %}
+            <tr>
+                <td>{{ a.title }}</td>
+                <td>{{ a.content }}</td>
+                <td>{% if a.file %}<a href="{{ a.file.url }}" target="_blank">Download</a>{% else %}-{% endif %}</td>
+                <td>{{ a.created_by.username }}</td>
+                <td>{{ a.created_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="text-align:center;">No announcements found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

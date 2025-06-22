@@ -1,0 +1,188 @@
+{% extends 'coaching/base.html' %}
+{% block title %}About | Coaching Management System{% endblock %}
+{% block content %}
+<div class="container about-container">
+    <h1 class="about-title">About CoachingMS</h1>
+    <p class="about-desc">CoachingMS is a modern, fully responsive coaching management system designed to streamline the operations of coaching institutes. Our platform provides dedicated dashboards and features for Students, Teachers, and Admins, ensuring a seamless and efficient experience for all users.</p>
+    <h2 class="about-section-title">How It Works</h2>
+    <ul class="about-features">
+        <li><b>Role-Based Access:</b> Students, Teachers, and Admins each have their own login and dashboard, with features tailored to their needs.</li>
+        <li><b>Student Features:</b> Enroll in courses, track attendance and performance, download study materials, and view announcements.</li>
+        <li><b>Teacher Features:</b> Mark attendance, upload study materials, manage assignments, communicate with students, and view analytics.</li>
+        <li><b>Admin Features:</b> Manage teacher approvals, oversee courses, and monitor platform activity.</li>
+        <li><b>Modern UI:</b> Enjoy a clean, card-based interface that is fully responsive and easy to navigate on any device.</li>
+        <li><b>Secure & Private:</b> All dashboards and features are protected by role-based authentication.</li>
+    </ul>
+    <h2 class="about-section-title" style="text-align:center">Meet Our Developer Team</h2>
+    <div class="dev-cards-row">
+        <div class="dev-card">
+            <img src="/static/images/dev1.jpg" alt="Md Amshar" class="dev-img">
+            <h3 class="dev-name">Md Amshar</h3>
+            <div class="dev-role">Django Developer</div>
+            <div class="dev-roll">Roll : 0116CS233D14</div>
+            <div class="dev-links">
+                <a href="https://github.com/amshar" target="_blank" title="GitHub" class="dev-link github"><i class="fa-brands fa-github"></i></a>
+                <a href="https://wa.me/919999999999" target="_blank" title="WhatsApp" class="dev-link whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:amshar@email.com" title="Email" class="dev-link email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="dev-card">
+            <img src="/static/images/dev2.jpg" alt="Md Yusuf Ansari" class="dev-img">
+            <h3 class="dev-name">Md Yusuf Ansari</h3>
+            <div class="dev-role">UI/UX Designer</div>
+            <div class="dev-roll">Roll : 0116CS233D26</div>
+            <div class="dev-links">
+                <a href="https://github.com/yusufansari" target="_blank" title="GitHub" class="dev-link github"><i class="fa-brands fa-github"></i></a>
+                <a href="https://wa.me/919888888888" target="_blank" title="WhatsApp" class="dev-link whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:yusuf@email.com" title="Email" class="dev-link email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="dev-card">
+            <img src="/static/images/dev3.jpg" alt="Musarrat Parween" class="dev-img">
+            <h3 class="dev-name">Musarrat Parween</h3>
+            <div class="dev-role">Frontend Developer</div>
+            <div class="dev-roll">Roll : 0116CS233D17</div>
+            <div class="dev-links">
+                <a href="https://github.com/musarratparween" target="_blank" title="GitHub" class="dev-link github"><i class="fa-brands fa-github"></i></a>
+                <a href="https://wa.me/917777777777" target="_blank" title="WhatsApp" class="dev-link whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:musarrat@email.com" title="Email" class="dev-link email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+    <p class="about-footer">We are passionate about building digital solutions that empower educators and learners. Thank you for choosing CoachingMS!</p>
+</div>
+<style>
+.about-container {
+    max-width: 950px;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px rgba(99,102,241,0.10);
+    padding: 40px 28px 32px 28px;
+}
+.about-title {
+    font-size: 2.3em;
+    color: #6366f1;
+    font-weight: 800;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.about-desc {
+    font-size: 1.18em;
+    color: #334155;
+    margin-bottom: 24px;
+    text-align: center;
+}
+.about-section-title {
+    color: #22d3ee;
+    font-size: 1.4em;
+    margin-top: 32px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.about-features {
+    font-size: 1.08em;
+    color: #475569;
+    margin: 18px 0 28px 18px;
+    line-height: 1.7;
+    padding-left: 18px;
+}
+.dev-cards-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 18px;
+    justify-content: center;
+    align-items: stretch;
+}
+.dev-card {
+    background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px rgba(99,102,241,0.13);
+    padding: 32px 28px 28px 28px;
+    max-width: 260px;
+    min-width: 220px;
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s, box-shadow 0.18s;
+    border: 1.5px solid #e0e7ff;
+}
+.dev-card:hover {
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(99,102,241,0.18);
+    border-color: #6366f1;
+}
+.dev-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px #6366f122;
+    border: 3px solid #22d3ee22;
+}
+.dev-name {
+    color: #6366f1;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-align: center;
+}
+.dev-role {
+    color: #64748b;
+    font-size: 1em;
+    margin-bottom: 4px;
+    text-align: center;
+}
+.dev-roll {
+    color: #334155;
+    font-size: 0.98em;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.dev-links {
+    display: flex;
+    gap: 18px;
+    margin-top: 10px;
+    justify-content: center;
+}
+.dev-link {
+    font-size: 1.5em;
+    transition: color 0.18s, transform 0.18s;
+    padding: 4px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    box-shadow: 0 2px 8px #6366f111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dev-link.github { color: #222; }
+.dev-link.whatsapp { color: #25D366; }
+.dev-link.email { color: #EA4335; }
+.dev-link:hover {
+    background: #e0e7ff;
+    color: #6366f1 !important;
+    transform: scale(1.18);
+}
+.about-footer {
+    margin-top: 38px;
+    color: #334155;
+    font-size: 1.08em;
+    text-align: center;
+}
+@media (max-width: 900px) {
+    .dev-cards-row { gap: 18px; }
+    .about-container { padding: 18px 4px; }
+}
+@media (max-width: 700px) {
+    .dev-cards-row { flex-direction: column; gap: 18px; }
+    .dev-card { min-width: 0; max-width: 100%; padding: 18px 4px; }
+    .about-title { font-size: 1.5em; }
+}
+</style>
+{% endblock %}

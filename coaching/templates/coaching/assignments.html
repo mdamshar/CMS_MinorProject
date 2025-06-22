@@ -1,0 +1,44 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Assignments | CoachingMS{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;margin:40px auto 0 auto;background:#fff;border-radius:1.5rem;box-shadow:0 6px 32px rgba(99,102,241,0.10);padding:40px 28px 32px 28px;">
+    <h1 style="font-size:2em;color:#6366f1;font-weight:700;margin-bottom:18px;">Upload Assignment</h1>
+    {% if success %}
+        <div style="background:#d1fae5;color:#065f46;padding:12px 18px;border-radius:8px;margin-bottom:18px;">{{ success }}</div>
+    {% endif %}
+    {% if error %}
+        <div style="background:#fee2e2;color:#991b1b;padding:12px 18px;border-radius:8px;margin-bottom:18px;">{{ error }}</div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" style="margin-bottom:24px;">
+        {% csrf_token %}
+        <label for="assignment_file" style="font-weight:600;color:#334155;">Select Assignment File:</label><br>
+        <input type="file" name="assignment_file" id="assignment_file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.rar,.txt,.jpg,.png,.jpeg" style="margin:12px 0 18px 0;">
+        <br>
+        <button type="submit" class="cta" style="padding:10px 28px;font-size:1.1em;">Upload</button>
+    </form>
+    <div style="margin-top:32px;">
+        <h2 style="font-size:1.2em;color:#6366f1;margin-bottom:10px;">Uploaded Assignments</h2>
+        <ul style="color:#475569;font-size:1.05em;line-height:1.7;list-style:disc inside;">
+            {% for file in assignments %}
+                <li>
+                    <a href="/static/assignments/{{ file }}" target="_blank" style="color:#6366f1;text-decoration:underline;">{{ file }}</a>
+                    <form method="post" action="?delete={{ file }}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none;border:none;color:#991b1b;cursor:pointer;font-size:1em;">Delete</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li style="color:#64748b;">No assignments uploaded yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div style="margin-top:32px;">
+        <h2 style="font-size:1.2em;color:#6366f1;margin-bottom:10px;">Instructions</h2>
+        <ul style="color:#475569;font-size:1.05em;line-height:1.7;">
+            <li>Accepted file types: PDF, Word, PowerPoint, ZIP, RAR, images, and text files.</li>
+            <li>Maximum file size: 10MB (enforced by server settings).</li>
+            <li>After uploading, assignments will be available for students to download.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

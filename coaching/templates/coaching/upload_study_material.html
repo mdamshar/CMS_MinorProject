@@ -1,0 +1,19 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Upload Study Material{% endblock %}
+{% block content %}
+<div class="container" style="max-width:500px;margin:40px auto 0 auto;">
+    <h1 style="color:#fde047;font-size:2em;">Upload & Share Study Material</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="file" class="form-label">Select File</label>
+            <input type="file" class="form-control" id="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-success">Upload</button>
+    </form>
+    {% if success %}
+    <div class="alert alert-success" style="margin-top:20px;">{{ success }}</div>
+    {% endif %}
+</div>
+{% endblock %}

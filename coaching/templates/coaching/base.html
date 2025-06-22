@@ -5,7 +5,13 @@
     <title>{% block title %}Coaching Management{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
@@ -15,50 +21,89 @@
         }
         .navbar {
             width: 100%;
-            background: #6366f1;
+            background: linear-gradient(90deg, #6366f1 60%, #22d3ee 100%);
             color: #fff;
             display: flex;
-            justify-content: space-between;
+            flex-direction: row;
             align-items: center;
+            justify-content: flex-start;
             padding: 18px 8vw;
-            box-shadow: 0 2px 12px rgba(99,102,241,0.08);
+            box-shadow: 0 4px 24px rgba(99,102,241,0.13);
             position: sticky;
             top: 0;
             z-index: 10;
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 0;
+            flex-direction: column;
+        }
+        .navbar > .logo-text {
+            margin-bottom: 0;
+            margin-right: 48px;
+            margin-left: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .logo {
-            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-text {
+            font-size: 2em;
             font-weight: bold;
             letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff 30%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .logo a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .logo span {
+        .logo-text span {
             color: #22d3ee;
+            -webkit-text-fill-color: #22d3ee;
         }
         .nav-links {
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
         .nav-links a {
             color: #fff;
             text-decoration: none;
             margin-left: 28px;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: color 0.2s;
-            border-radius: 6px;
-            padding: 8px 16px;
+            font-size: 1.15em;
+            font-weight: 600;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            border-radius: 8px;
+            padding: 10px 22px;
+            box-shadow: 0 2px 8px rgba(34,211,238,0.08);
         }
         .nav-links a:hover, .nav-links .cta {
-            background: #22d3ee;
-            color: #fff;
+            background: #fff;
+            color: #6366f1;
+            box-shadow: 0 4px 16px rgba(34,211,238,0.13);
         }
         .nav-links a.active, .logo a.active {
             background: #22d3ee;
             color: #fff !important;
+            box-shadow: 0 4px 16px rgba(34,211,238,0.18);
+        }
+        .nav-links .cta {
+            position: static;
+            z-index: 1;
+            background: #fff;
+            color: #22d3ee;
+            font-weight: 700;
+            border: 2px solid #22d3ee;
         }
         /* Responsive Navbar */
         .navbar-toggle {
@@ -96,6 +141,13 @@
                 align-items: flex-start;
                 padding: 10px 1vw;
             }
+            .navbar-inner {
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                max-width: 100vw;
+                padding: 0 12px;
+            }
             .navbar-toggle {
                 display: flex;
             }
@@ -103,12 +155,17 @@
                 flex-direction: column;
                 width: 100%;
                 display: none;
-                background: #6366f1;
+                background: linear-gradient(90deg, #6366f1 60%, #22d3ee 100%);
                 position: absolute;
-                top: 60px;
+                top: 100%;
                 left: 0;
                 z-index: 100;
                 box-shadow: 0 4px 16px rgba(99,102,241,0.13);
+                border-bottom-left-radius: 1.5rem;
+                border-bottom-right-radius: 1.5rem;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                animation: fadeIn 0.3s;
             }
             .nav-links.open {
                 display: flex;
@@ -121,39 +178,156 @@
                 border-bottom: 1px solid #818cf8;
                 text-align: left;
             }
+            .nav-links .cta {
+                position: static;
+                width: 100%;
+                border-radius: 0;
+            }
             .nav-links a:last-child {
                 border-bottom: none;
             }
         }
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 8px 0.5vw;
+                border-bottom-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+            }
+            .logo-text {
+                font-size: 1.3em;
+            }
+            .nav-links a {
+                font-size: 0.98em;
+                padding: 10px 10px;
+            }
+        }
+        @media (max-width: 430px) {
+            .navbar {
+                padding: 6px 0.2vw;
+            }
+            .logo-text {
+                font-size: 1.1em;
+            }
+            .nav-links a {
+                font-size: 0.92em;
+                padding: 10px 6px;
+            }
+            .navbar-toggle {
+                width: 32px;
+                height: 32px;
+            }
+            .navbar-toggle span {
+                width: 22px;
+                height: 3px;
+            }
+        }
+        @media (max-width: 370px) {
+            .navbar {
+                padding: 2px 0.1vw;
+            }
+            .logo-text {
+                font-size: 0.95em;
+            }
+            .nav-links a {
+                font-size: 0.85em;
+                padding: 8px 2px;
+            }
+        }
         .footer {
-            margin-top: 40px;
-            font-size: 1em;
-            color: #64748b;
-            letter-spacing: 1px;
-            text-align: center;
-            padding: 24px 0 12px 0;
-            background: transparent;
+            background: linear-gradient(90deg, #6366f1 60%, #22d3ee 100%);
+            color: #fff;
+            padding: 40px 0 20px 0;
+            margin-top: 48px;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            box-shadow: 0 -4px 24px rgba(99,102,241,0.13);
+        }
+        .footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .footer .branding {
+            flex: 1 1 220px;
+            min-width: 180px;
+            text-align: left;
+        }
+        .footer .quick-links {
+            flex: 1 1 180px;
+            min-width: 140px;
+            text-align: left;
+        }
+        .footer .contact-info {
+            flex: 1 1 220px;
+            min-width: 180px;
+            text-align: left;
+        }
+        .footer h4 {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+        /* Subtle fade-in for content */
+        body, .navbar, .footer, .card, .container {
+            animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: none; }
         }
     </style>
     {% block head %}{% endblock %}
 </head>
 <body>
+    {% load custom_tags %}
+    {% block navbar %}
     <nav class="navbar">
-        <div class="logo"><a href="/" class="{% if request.path == '/' %}active{% endif %}">Coaching<span>MS</span></a></div>
-        <div class="navbar-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="nav-links">
-            <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-            <a href="/courses/" class="{% if request.path == '/courses/' %}active{% endif %}">Courses</a>
-            <a href="/students/" class="{% if request.path == '/students/' %}active{% endif %}">Students</a>
-            <a href="/teachers/" class="{% if request.path == '/teachers/' %}active{% endif %}">Teachers</a>
-            <a href="/admin/" class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a>
-            <a href="/contact/" class="cta {% if request.path == '/contact/' %}active{% endif %}">Contact</a>
+        <div class="navbar-inner" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:32px;flex-direction:row;">
+            <a href="/" class="logo-text" style="text-decoration:none; margin: 0 32px 0 0; display: flex; align-items: center;">Coaching<span>MS</span></a>
+            <div class="nav-links" style="display:flex;align-items:center;gap:24px;">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'admin_dashboard' %}" class="{% if request.path == '/admin-dashboard/' %}active{% endif %}">Dashboard</a>
+                    {% elif request.user|has_group:'Teachers' %}
+                        <a href="{% url 'teacher_dashboard' %}" class="{% if request.path == '/teacher-dashboard/' %}active{% endif %}">Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'student_dashboard' %}" class="{% if request.path == '/student-dashboard/' %}active{% endif %}">Dashboard</a>
+                    {% endif %}
+                    <a href="{% url 'about' %}" class="cta {% if request.path == '/about/' %}active{% endif %}">About</a>
+                    <a href="{% url 'logout' %}" style="color:#ef4444;font-weight:700;">Logout</a>
+                {% else %}
+                    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+                    <a href="{% url 'about' %}" class="cta {% if request.path == '/about/' %}active{% endif %}">About</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
+    {% endblock %}
+    {% if messages %}
+    <div class="container" style="max-width:600px;margin:18px auto 0 auto;">
+        {% for message in messages %}
+            <div style="background:#fbbf24;color:#fff;padding:12px 18px;border-radius:8px;margin-bottom:10px;font-weight:600;text-align:center;box-shadow:0 2px 8px rgba(251,191,36,0.13);">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% block content %}
     <!-- Page content goes here -->
     {% endblock %}
@@ -161,5 +335,30 @@
         &copy; {{ now|date:"Y" }} Coaching Management System. All rights reserved.
     </div>
     {% block extra_body %}{% endblock %}
+    <script>
+        // Responsive navbar toggle for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.querySelector('.navbar-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            if (toggle && navLinks) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('open');
+                });
+                // Close nav on link click (mobile UX)
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinks.classList.remove('open');
+                    });
+                });
+                // Close nav if clicking outside
+                document.addEventListener('click', function(e) {
+                    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !toggle.contains(e.target)) {
+                        navLinks.classList.remove('open');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

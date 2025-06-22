@@ -1,0 +1,26 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Student Progress & Analytics{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;margin:40px auto 0 auto;">
+    <h1 style="color:#22d3ee;font-size:2em;">Student Progress & Analytics</h1>
+    <hr>
+    <table class="table table-bordered" style="width:100%;background:#fff;">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Attendance (%)</th>
+                <th>Progress (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in analytics %}
+            <tr>
+                <td>{{ item.student.name }}</td>
+                <td>{{ item.attendance }}</td>
+                <td>{{ item.progress }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

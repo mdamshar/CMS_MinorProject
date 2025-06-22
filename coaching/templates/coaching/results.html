@@ -1,0 +1,34 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<div class="container" style="max-width:800px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;">Results</h1>
+    <hr>
+    <table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:1rem;box-shadow:0 2px 12px #6366f122;">
+        <thead>
+            <tr style="background:#6366f1;color:#fff;">
+                <th style="padding:12px 8px;">Student</th>
+                <th style="padding:12px 8px;">Course</th>
+                <th style="padding:12px 8px;">Marks</th>
+                <th style="padding:12px 8px;">File</th>
+                <th style="padding:12px 8px;">Description</th>
+                <th style="padding:12px 8px;">Uploaded At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.student.name }}</td>
+                <td>{{ r.course.name }}</td>
+                <td>{{ r.marks }}</td>
+                <td>{% if r.file %}<a href="{{ r.file.url }}" target="_blank">Download</a>{% else %}-{% endif %}</td>
+                <td>{{ r.description }}</td>
+                <td>{{ r.uploaded_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" style="text-align:center;">No results found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

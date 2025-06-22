@@ -1,0 +1,22 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Edit Course{% endblock %}
+{% block content %}
+<div class="container" style="max-width:500px;margin:40px auto 0 auto;">
+    <h1 style="color:#6366f1;font-size:2em;font-weight:800;margin-bottom:18px;">Edit Course</h1>
+    <form method="post" style="background:#fff;padding:32px 24px;border-radius:1.2rem;box-shadow:0 4px 24px rgba(99,102,241,0.10);">
+        {% csrf_token %}
+        <div style="margin-bottom:18px;">
+            <label for="name" style="font-weight:600;color:#6366f1;">Course Name</label>
+            <input type="text" id="name" name="name" value="{{ course.name }}" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #e0e7ff;margin-top:6px;">
+        </div>
+        <div style="margin-bottom:18px;">
+            <label for="description" style="font-weight:600;color:#6366f1;">Description</label>
+            <textarea id="description" name="description" rows="4" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #e0e7ff;margin-top:6px;">{{ course.description }}</textarea>
+        </div>
+        <div style="text-align:right;">
+            <button type="submit" style="background:linear-gradient(90deg,#6366f1 60%,#22d3ee 100%);color:#fff;font-weight:700;padding:10px 28px;border:none;border-radius:8px;font-size:1.1em;cursor:pointer;">Update Course</button>
+            <a href="{% url 'course_list' %}" style="margin-left:12px;color:#6366f1;text-decoration:underline;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

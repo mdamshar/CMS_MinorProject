@@ -1,518 +1,64 @@
 {% extends 'coaching/base.html' %}
-{% block title %}Home{% endblock %}
-{% block head %}
-<style>
-    .container {
-        background: rgba(255,255,255,0.85);
-        border-radius: 24px;
-        box-shadow: 0 8px 32px rgba(99,102,241,0.10);
-        max-width: 700px;
-        margin: 60px auto 0 auto;
-        padding: 40px 30px 30px 30px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    .container::before {
-        content: '';
-        position: absolute;
-        top: -60px;
-        left: -60px;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle, #6366f1 40%, transparent 70%);
-        opacity: 0.12;
-        z-index: 0;
-    }
-    .container::after {
-        content: '';
-        position: absolute;
-        bottom: -60px;
-        right: -60px;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle, #22d3ee 40%, transparent 70%);
-        opacity: 0.12;
-        z-index: 0;
-    }
-    h1 {
-        margin-top: 0;
-        font-size: 2.5em;
-        letter-spacing: 2px;
-        text-shadow: 1px 1px 8px #fca5a5;
-        color: #ef4444;
-        position: relative;
-        z-index: 1;
-    }
-    hr {
-        width: 60%;
-        border: 1px solid #6366f1;
-        margin-bottom: 30px;
-        position: relative;
-        z-index: 1;
-    }
-    img {
-        border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(99,102,241,0.15);
-        margin-bottom: 30px;
-        width: 80%;
-        max-width: 400px;
-        position: relative;
-        z-index: 1;
-        transition: transform 0.3s;
-    }
-    img:hover {
-        transform: scale(1.03) rotate(-2deg);
-        box-shadow: 0 12px 32px rgba(99,102,241,0.18);
-    }
-    .links {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        align-items: center;
-        margin-top: 10px;
-        position: relative;
-        z-index: 1;
-    }
-    .links a {
-        display: inline-block;
-        padding: 14px 32px;
-        font-size: 1.1em;
-        font-weight: 500;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.08);
-        border: none;
-        outline: none;
-    }
-    .links a[href="/courses/"] {
-        background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
-        color: #fff;
-    }
-    .links a[href="/courses/"]:hover {
-        background: linear-gradient(90deg, #4338ca 60%, #6366f1 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(99,102,241,0.13);
-    }
-    .links a[href="/students/"] {
-        background: linear-gradient(90deg, #22d3ee 60%, #38bdf8 100%);
-        color: #fff;
-    }
-    .links a[href="/students/"]:hover {
-        background: linear-gradient(90deg, #0e7490 60%, #22d3ee 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(34,211,238,0.13);
-    }
-    .links a[href="/teachers/"] {
-        background: linear-gradient(90deg, #f59e42 60%, #fbbf24 100%);
-        color: #fff;
-    }
-    .links a[href="/teachers/"]:hover {
-        background: linear-gradient(90deg, #ea580c 60%, #f59e42 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(245,158,66,0.13);
-    }
-    .links a[href="/contact/"] {
-        background: linear-gradient(90deg, #a78bfa 60%, #818cf8 100%);
-        color: #fff;
-    }
-    .links a[href="/contact/"]:hover {
-        background: linear-gradient(90deg, #7c3aed 60%, #a78bfa 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(167,139,250,0.13);
-    }
-    .role-sections {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 32px;
-        justify-content: center;
-        margin: 40px auto 20px auto;
-        z-index: 2;
-        position: relative;
-    }
-    .role-card {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 18px rgba(99,102,241,0.13);
-        padding: 32px 28px 24px 28px;
-        max-width: 260px;
-        min-width: 200px;
-        text-align: center;
-        transition: transform 0.2s, box-shadow 0.2s;
-        border: 2px solid #f1f5f9;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-    }
-    .role-card:hover {
-        transform: translateY(-6px) scale(1.04);
-        box-shadow: 0 8px 32px rgba(99,102,241,0.18);
-        border: 2px solid #6366f1;
-    }
-    .role-icon {
-        font-size: 2.7em;
-        margin-bottom: 14px;
-        color: #6366f1;
-        display: block;
-    }
-    .role-title {
-        font-size: 1.25em;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #334155;
-    }
-    .role-features {
-        text-align: left;
-        font-size: 1em;
-        color: #64748b;
-        margin: 0 auto 12px auto;
-        padding-left: 0;
-        list-style: none;
-    }
-    .role-features li {
-        margin-bottom: 8px;
-        padding-left: 1.2em;
-        position: relative;
-    }
-    .role-features li:before {
-        content: '\2713';
-        color: #22d3ee;
-        position: absolute;
-        left: 0;
-        font-size: 1.1em;
-    }
-    .panel-link {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 10px 24px;
-        background: linear-gradient(90deg, #6366f1 60%, #22d3ee 100%);
-        color: #fff;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.10);
-    }
-    .panel-link:hover {
-        background: linear-gradient(90deg, #4338ca 60%, #0ea5e9 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(99,102,241,0.13);
-    }
-    .login-link {
-        display: inline-block;
-        margin-top: 8px;
-        padding: 8px 20px;
-        background: linear-gradient(90deg, #818cf8 60%, #22d3ee 100%);
-        color: #fff;
-        border-radius: 6px;
-        font-weight: 500;
-        text-decoration: none;
-        font-size: 1em;
-        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.10);
-    }
-    .login-link:hover {
-        background: linear-gradient(90deg, #6366f1 60%, #0ea5e9 100%);
-        color: #fff;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 16px rgba(99,102,241,0.13);
-    }
-    .announcements {
-        margin-top:30px;
-        background:rgba(236, 254, 255, 0.7);
-        border-radius:12px;
-        padding:18px;
-    }
-    .announcements h2 {
-        color:#0ea5e9;
-        margin-bottom:10px;
-    }
-    .announcements ul {
-        list-style:none;
-        padding:0;
-        color:#334155;
-        font-size:1.08em;
-    }
-    .announcements li span {
-        color:#22d3ee;
-    }
-    .testimonials {
-        margin: 40px auto 0 auto;
-        max-width: 600px;
-        background: rgba(255,255,255,0.95);
-        border-radius: 18px;
-        box-shadow: 0 4px 24px rgba(99,102,241,0.10);
-        padding: 24px 20px;
-        text-align: center;
-    }
-    .testimonials h2 {
-        color: #6366f1;
-        margin-bottom: 18px;
-    }
-    .testimonial-cards {
-        display: flex;
-        gap: 18px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    .testimonial {
-        background: #f1f5f9;
-        border-radius: 12px;
-        padding: 14px 18px;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.07);
-        max-width: 240px;
-        font-style: italic;
-        color: #334155;
-        margin-bottom: 10px;
-    }
-    .testimonial span {
-        display: block;
-        margin-top: 8px;
-        color: #6366f1;
-        font-weight: 600;
-        font-style: normal;
-    }
-    .contact-section {
-        margin: 40px auto 40px auto;
-        max-width: 600px;
-        background: rgba(255,255,255,0.95);
-        border-radius: 18px;
-        box-shadow: 0 4px 24px rgba(99,102,241,0.10);
-        padding: 24px 20px;
-        text-align: center;
-    }
-    .contact-section h2 {
-        color: #22d3ee;
-        margin-bottom: 12px;
-    }
-    .contact-link {
-        color: #6366f1;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-    @media (max-width: 1200px) {
-        .container {
-            max-width: 98vw;
-            padding: 24px 2vw 24px 2vw;
-        }
-        .role-sections {
-            gap: 20px;
-        }
-        .testimonials, .contact-section {
-            max-width: 98vw;
-            padding: 18px 2vw;
-        }
-    }
-    @media (max-width: 900px) {
-        .role-sections {
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-        }
-        .container {
-            max-width: 99vw;
-            padding: 18px 2vw 18px 2vw;
-        }
-        .role-card {
-            width: 95vw;
-            max-width: 350px;
-        }
-        .testimonials, .contact-section {
-            max-width: 99vw;
-            padding: 14px 2vw;
-        }
-    }
-    @media (max-width: 700px) {
-        .container {
-            max-width: 100vw;
-            padding: 10px 1vw 10px 1vw;
-        }
-        img {
-            width: 98vw;
-            max-width: 99vw;
-        }
-        h1 {
-            font-size: 1.3em;
-        }
-        hr {
-            width: 95%;
-        }
-        .links a {
-            width: 98vw;
-            font-size: 1em;
-            max-width: 99vw;
-        }
-        .role-card {
-            width: 98vw;
-            max-width: 99vw;
-            padding: 18px 6px 18px 6px;
-        }
-        .testimonial-cards {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .testimonials, .contact-section {
-            max-width: 99vw;
-            padding: 10px 1vw;
-        }
-    }
-    @media (max-width: 500px) {
-        .container {
-            padding: 4px 0 4px 0;
-        }
-        h1 {
-            font-size: 1em;
-        }
-        .role-title {
-            font-size: 1em;
-        }
-        .role-features {
-            font-size: 0.95em;
-        }
-        .panel-link, .login-link {
-            font-size: 0.95em;
-            padding: 8px 10px;
-        }
-        .links a {
-            font-size: 0.95em;
-            padding: 10px 8px;
-        }
-        .testimonials, .contact-section {
-            padding: 6px 0;
-        }
-    }
-    @media (max-width: 400px) {
-        .container {
-            padding: 2px 0 2px 0;
-        }
-        .role-card {
-            padding: 10px 2px 10px 2px;
-            min-width: 0;
-        }
-        .panel-link, .login-link {
-            font-size: 0.9em;
-            padding: 7px 6px;
-        }
-        .links a {
-            font-size: 0.9em;
-            padding: 8px 4px;
-        }
-        .testimonials, .contact-section {
-            padding: 3px 0;
-        }
-        .testimonial {
-            padding: 8px 6px;
-            font-size: 0.95em;
-        }
-        .announcements {
-            padding: 8px 2px;
-        }
-    }
-    @media (max-width: 350px) {
-        h1 {
-            font-size: 0.8em;
-        }
-        .role-title {
-            font-size: 0.85em;
-        }
-        .role-features {
-            font-size: 0.85em;
-        }
-        .panel-link, .login-link, .links a {
-            font-size: 0.8em;
-        }
-    }
-    html, body {
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-</style>
-{% endblock %}
+{% block title %}CoachingMS | Home{% endblock %}
 {% block content %}
-<div class="container">
-    <h1>Welcome to Coaching Management System</h1>
-    <hr>
-    <img src="https://iproedu.in/wp-content/uploads/2020/12/finance-exam-12-th-800x400.png" alt="coaching">
-    <div class="links">
-        <a href="/courses/">View Courses</a>
-        <a href="/students/">View Students</a>
-        <a href="/teachers/">View Teachers</a>
-        <a href="/admin/">Admin Panel</a>
-        <a href="/contact/">Contact Us</a>
+<div class="container" style="max-width:1100px;margin:0 auto;padding:0 0 40px 0;">
+    <div style="text-align:center;margin-top:60px;margin-bottom:40px;">
+        <h1 style="font-size:2.7em;font-weight:800;color:#6366f1;letter-spacing:2px;">Welcome to <span style="color:#22d3ee;">CoachingMS</span></h1>
+        <p style="font-size:1.25em;color:#334155;margin:18px auto 0 auto;max-width:600px;line-height:1.7;">
+            A modern, all-in-one platform for coaching institutes. Manage students, teachers, courses, and resources with ease. Empower learning, streamline operations, and connect your community.
+        </p>
     </div>
-    <div class="role-sections">
-        <div class="role-card">
-            <span class="role-icon">👨‍🏫</span>
-            <div class="role-title">Teacher Panel</div>
-            <ul class="role-features">
-                <li>Mark & manage attendance</li>
-                <li>View student progress and analytics</li>
-                <li>Upload and share study material</li>
-                <li>Interact with students via messages</li>
-                <li>Assignment & grading tools</li>
-            </ul>
-            <a href="/teachers/" class="panel-link">Go to Teacher Panel</a>
-            <a href="/teacher-login/" class="login-link">Teacher Login</a>
+    <div style="display:flex;flex-wrap:wrap;gap:36px;justify-content:center;align-items:stretch;">
+        <div class="card" style="flex:1 1 260px;max-width:340px;background:linear-gradient(135deg,#6366f1 60%,#22d3ee 100%);color:#fff;border-radius:1.5rem;box-shadow:0 6px 32px rgba(99,102,241,0.13);padding:38px 28px 32px 28px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+                <div style="font-size:2.7em;margin-bottom:10px;">🎓</div>
+                <h2 style="font-size:1.4em;font-weight:700;margin-bottom:10px;">Student Portal</h2>
+                <p style="font-size:1.08em;line-height:1.6;">Enroll in courses, track your progress, download resources, and stay updated with announcements.</p>
+            </div>
+            <a href="{% url 'student_login' %}" class="cta" style="margin-top:22px;">Student Login</a>
         </div>
-        <div class="role-card">
-            <span class="role-icon">🎓</span>
-            <div class="role-title">Student Panel</div>
-            <ul class="role-features">
-                <li>View & enroll in courses</li>
-                <li>Check attendance & progress</li>
-                <li>Download resources & assignments</li>
-                <li>Track performance in real time</li>
-                <li>Access announcements & notifications</li>
-            </ul>
-            <a href="/students/" class="panel-link">Go to Student Panel</a>
-            <a href="/student-login/" class="login-link">Student Login</a>
+        <div class="card" style="flex:1 1 260px;max-width:340px;background:linear-gradient(135deg,#22d3ee 60%,#6366f1 100%);color:#fff;border-radius:1.5rem;box-shadow:0 6px 32px rgba(34,211,238,0.13);padding:38px 28px 32px 28px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+                <div style="font-size:2.7em;margin-bottom:10px;">👩‍🏫</div>
+                <h2 style="font-size:1.4em;font-weight:700;margin-bottom:10px;">Teacher Portal</h2>
+                <p style="font-size:1.08em;line-height:1.6;">Mark attendance, upload study material, manage assignments, and analyze student performance.</p>
+            </div>
+            <a href="{% url 'teacher_login' %}" class="cta" style="margin-top:22px;">Teacher Login</a>
         </div>
-        <div class="role-card">
-            <span class="role-icon">🛡️</span>
-            <div class="role-title">Manager / Admin</div>
-            <ul class="role-features">
-                <li>Manage teachers & students</li>
-                <li>Control courses, fees & schedules</li>
-                <li>Post announcements & events</li>
-                <li>View analytics & reports</li>
-                <li>Secure admin dashboard</li>
-            </ul>
-            <a href="/admin/" class="panel-link">Go to Admin Panel</a>
-            <a href="/admin/login/" class="login-link">Admin Login</a>
+        <div class="card" style="flex:1 1 260px;max-width:340px;background:linear-gradient(135deg,#fbbf24 60%,#6366f1 100%);color:#fff;border-radius:1.5rem;box-shadow:0 6px 32px rgba(251,191,36,0.13);padding:38px 28px 32px 28px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+                <div style="font-size:2.7em;margin-bottom:10px;">🛡️</div>
+                <h2 style="font-size:1.4em;font-weight:700;margin-bottom:10px;">Admin Panel</h2>
+                <p style="font-size:1.08em;line-height:1.6;">Approve teachers, manage courses, view analytics, and oversee all platform activity.</p>
+            </div>
+            <a href="{% url 'admin_login' %}" class="cta" style="margin-top:22px;">Admin Login</a>
         </div>
     </div>
-    <div class="announcements">
-        <h2>Latest Announcements</h2>
-        <ul>
-            <li><span>&#9733;</span> Admissions open for new batch - <b>Apply Now!</b></li>
-            <li><span>&#9733;</span> Summer coaching schedule released</li>
-            <li><span>&#9733;</span> Scholarship test on <b>15th July</b></li>
-        </ul>
-    </div>
-</div>
-<div class="testimonials">
-    <h2>What Our Students Say</h2>
-    <div class="testimonial-cards">
-        <div class="testimonial">
-            "The best platform to manage my coaching classes efficiently!"
-            <span>- Priya S.</span>
+    <div style="margin-top:60px;text-align:center;">
+        <h2 style="color:#6366f1;font-size:1.5em;font-weight:700;margin-bottom:10px;">Why CoachingMS?</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:28px;justify-content:center;align-items:stretch;margin-top:18px;">
+            <div style="flex:1 1 220px;max-width:300px;background:#f1f5f9;border-radius:1rem;padding:24px 18px;box-shadow:0 2px 12px #6366f122;text-align:center;">
+                <div style="font-size:2em;color:#6366f1;">⚡</div>
+                <div style="font-weight:600;font-size:1.08em;margin:10px 0 0 0;">Fast & Secure</div>
+                <div style="color:#64748b;font-size:1em;margin-top:6px;">Built with Django, your data is safe and your experience is smooth.</div>
+            </div>
+            <div style="flex:1 1 220px;max-width=300px;background:#f0f9ff;border-radius:1rem;padding:24px 18px;box-shadow:0 2px 12px #22d3ee22;text-align:center;">
+                <div style="font-size:2em;color:#22d3ee;">📱</div>
+                <div style="font-weight:600;font-size:1.08em;margin:10px 0 0 0;">Fully Responsive</div>
+                <div style="color:#64748b;font-size:1em;margin-top:6px;">Looks great on any device, from desktop to mobile.</div>
+            </div>
+            <div style="flex:1 1 220px;max-width=300px;background:#fef9c3;border-radius:1rem;padding:24px 18px;box-shadow:0 2px 12px #fde04722;text-align:center;">
+                <div style="font-size:2em;color:#fde047;">🎯</div>
+                <div style="font-weight:600;font-size:1.08em;margin:10px 0 0 0;">Role-Based Access</div>
+                <div style="color:#64748b;font-size:1em;margin-top:6px;">Students, Teachers, and Admins each have their own dashboard and features.</div>
+            </div>
+            <div style="flex:1 1 220px;max-width=300px;background:#f3e8ff;border-radius:1rem;padding:24px 18px;box-shadow:0 2px 12px #a78bfa22;text-align:center;">
+                <div style="font-size:2em;color:#a78bfa;">💬</div>
+                <div style="font-weight:600;font-size:1.08em;margin:10px 0 0 0;">Easy Communication</div>
+                <div style="color:#64748b;font-size:1em;margin-top:6px;">Messaging and announcements keep everyone connected.</div>
+            </div>
         </div>
-        <div class="testimonial">
-            "Easy to use and visually appealing. Highly recommended."
-            <span>- Rahul K.</span>
-        </div>
     </div>
-</div>
-<div class="contact-section">
-    <h2>Contact Us</h2>
-    <p>Have questions? <a href="mailto:info@coachingms.com" class="contact-link">Email us</a> and we’ll get back to you soon!</p>
 </div>
 {% endblock %}
 

@@ -1,0 +1,54 @@
+{% extends 'coaching/base.html' %}
+{% block title %}Student Dashboard | CoachingMS{% endblock %}
+{% block content %}
+<div style="position:relative; min-height:60vh; display:flex; align-items:center; justify-content:center;">
+    <div style="position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:0; text-align:center; pointer-events:none;">
+        <span style="font-size:4em; color:#e0e7ff; font-weight:800; opacity:0.5; user-select:none;">Welcome, {{ request.user.first_name|default:request.user.username }}</span>
+    </div>
+    <div class="container" style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 1.5rem; box-shadow: 0 6px 32px rgba(99,102,241,0.10); padding: 40px 28px 32px 28px; position:relative; z-index:1;">
+        <h1 style="font-size:2.1em; color:#6366f1; font-weight:700; margin-bottom:18px; text-align:center;">Student Dashboard</h1>
+        <div style="margin-bottom:24px; text-align:center;">
+            <b>Enrolled Courses:</b>
+            <ul style="display:inline-block; text-align:left;">
+                {% for course in enrolled_courses %}
+                    <li>{{ course.name }}</li>
+                {% empty %}
+                    <li>No courses enrolled yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center; margin-top:18px;">
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#6366f1;">Enroll in Courses</h3>
+                <p>Browse and enroll in available courses.</p>
+                <a href="/courses/" class="cta" style="display:inline-block; margin-top:10px;">Enroll Now</a>
+            </div>
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#22d3ee;">Attendance & Progress</h3>
+                <p>Check your attendance and track your progress.</p>
+                <a href="/view-analytics/" class="cta" style="display:inline-block; margin-top:10px;">View Progress</a>
+            </div>
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#6366f1;">Download Resources</h3>
+                <p>Access and download study materials shared by teachers.</p>
+                <a href="{% url 'study_materials' %}" class="cta" style="display:inline-block; margin-top:10px;">Resources</a>
+            </div>
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#22d3ee;">Assignments</h3>
+                <p>View and submit your assignments.</p>
+                <a href="{% url 'assignments_list' %}" class="cta" style="display:inline-block; margin-top:10px;">Assignments</a>
+            </div>
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#22d3ee;">Results</h3>
+                <p>View your results and marksheets.</p>
+                <a href="{% url 'results_view' %}" class="cta" style="display:inline-block; margin-top:10px;">Results</a>
+            </div>
+            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
+                <h3 style="color:#22d3ee;">Announcements</h3>
+                <p>Stay updated with the latest announcements.</p>
+                <a href="{% url 'announcements_view' %}" class="cta" style="display:inline-block; margin-top:10px;">View Announcements</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -10,6 +10,7 @@ class Course(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
+    image = models.ImageField(upload_to='course_images/', blank=True, null=True)  # New field for course image
 
     def __str__(self):
         return self.name
@@ -19,6 +20,10 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    date_joined = models.DateTimeField(auto_now_add=True, null=True)
     enrolled_courses = models.ManyToManyField(Course)
 
     def __str__(self):

@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Course, Student, StudyMaterial, Assignment, Message, Result, Announcement
+from .models import Course, Student, StudyMaterial, Assignment, Message, Result, Announcement, Attendance
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -76,23 +76,32 @@ def add_course(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         description = request.POST.get('description')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        image = request.FILES.get('image')
         if not name:
             error = 'Course name is required.'
+        elif not start_date or not end_date:
+            error = 'Start date and end date are required.'
         else:
-            Course.objects.create(name=name, description=description)
+            Course.objects.create(name=name, description=description, start_date=start_date, end_date=end_date, image=image)
             success = 'Course added successfully!'
     return render(request, 'coaching/add_course.html', {'error': error, 'success': success})
 
 def student_dashboard(request):
     enrolled_courses = []
+    available_courses = []
     if request.user.is_authenticated:
         try:
             student = Student.objects.get(email=request.user.email)
             enrolled_courses = student.enrolled_courses.all()
+            enrolled_ids = enrolled_courses.values_list('id', flat=True)
+            available_courses = Course.objects.exclude(id__in=enrolled_ids)
         except Student.DoesNotExist:
-            pass
+            available_courses = Course.objects.all()
     context = {
         'enrolled_courses': enrolled_courses,
+        'available_courses': available_courses,
     }
     return render(request, 'coaching/student_dashboard.html', context)
 
@@ -128,27 +137,28 @@ def student_register(request):
     success = None
     courses = Course.objects.all()
     if request.method == 'POST':
-        username = request.POST.get('username')
+        name = request.POST.get('first_name', '') + ' ' + request.POST.get('last_name', '')
         email = request.POST.get('email')
-        password = request.POST.get('password')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        dob = request.POST.get('dob')
-        gender = request.POST.get('gender')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
+        dob = request.POST.get('dob')
+        gender = request.POST.get('gender')
+        password = request.POST.get('password')
         selected_courses = request.POST.getlist('courses')
-        if User.objects.filter(username=username).exists():
-            error = 'Username already exists.'
+        if Student.objects.filter(email=email).exists():
+            error = 'Email already exists.'
         else:
-            user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-            user.save()
-            try:
-                student = Student.objects.create(user=user, dob=dob, gender=gender, phone=phone, address=address)
-                student.courses.set(selected_courses)
-                student.save()
-            except Exception:
-                pass  # If no Student model or M2M, skip
+            student = Student.objects.create(
+                name=name.strip(),
+                email=email,
+                phone=phone,
+                address=address,
+                dob=dob if dob else None,
+                gender=gender
+            )
+            if selected_courses:
+                student.enrolled_courses.set(selected_courses)
+            student.save()
             success = 'Account created successfully! You can now log in.'
     return render(request, 'coaching/student_register.html', {'error': error, 'success': success, 'courses': courses})
 
@@ -195,7 +205,21 @@ def admin_dashboard(request):
     return render(request, 'coaching/admin_dashboard.html')
 
 def mark_attendance(request):
-    return render(request, 'coaching/mark_attendance.html')
+    students = Student.objects.all()
+    courses = Course.objects.all()
+    if request.method == 'POST':
+        course_id = request.POST.get('course_id')
+        date = request.POST.get('date')
+        present_ids = request.POST.getlist('present')
+        course = Course.objects.get(id=course_id) if course_id else None
+        for student in students:
+            if str(student.id) in present_ids:
+                Attendance.objects.create(student=student, date=date, status=True)
+            else:
+                Attendance.objects.create(student=student, date=date, status=False)
+        messages.success(request, 'Attendance marked successfully!')
+        return redirect('mark_attendance')
+    return render(request, 'coaching/mark_attendance.html', {'students': students, 'courses': courses})
 
 def view_analytics(request):
     return render(request, 'coaching/view_analytics.html')
@@ -340,4 +364,22 @@ def delete_course(request, course_id):
         course.delete()
         messages.success(request, 'Course deleted successfully!')
         return redirect('course_list')
+    return redirect('course_list')
+
+def enroll_course(request, course_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to enroll in a course.")
+        return redirect('course_list')
+    try:
+        student = Student.objects.get(email=request.user.email)
+        course = Course.objects.get(id=course_id)
+        if course not in student.enrolled_courses.all():
+            student.enrolled_courses.add(course)
+            messages.success(request, f"Enrolled in {course.name} successfully!")
+        else:
+            messages.info(request, f"You are already enrolled in {course.name}.")
+    except Student.DoesNotExist:
+        messages.error(request, "Student profile not found.")
+    except Course.DoesNotExist:
+        messages.error(request, "Course not found.")
     return redirect('course_list')

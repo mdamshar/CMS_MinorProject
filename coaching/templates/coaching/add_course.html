@@ -10,15 +10,27 @@
         {% if success %}
             <div style="background:#d1fae5;color:#065f46;padding:12px 18px;border-radius:8px;margin-bottom:18px;font-weight:600;text-align:center;">{{ success }}</div>
         {% endif %}
-        <form method="post" autocomplete="off" style="margin-top: 0;">
+        <form method="post" enctype="multipart/form-data" autocomplete="off" style="margin-top: 0;">
             {% csrf_token %}
             <div style="margin-bottom: 22px;">
                 <label for="name" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Course Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter course name" required style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.1em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);">
             </div>
+            <div style="margin-bottom: 22px;">
+                <label for="start_date" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Start Date</label>
+                <input type="date" id="start_date" name="start_date" required style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.1em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);">
+            </div>
+            <div style="margin-bottom: 22px;">
+                <label for="end_date" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">End Date</label>
+                <input type="date" id="end_date" name="end_date" required style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.1em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);">
+            </div>
             <div style="margin-bottom: 28px;">
                 <label for="description" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Description</label>
                 <textarea id="description" name="description" rows="3" placeholder="Course description" style="width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid #c7d2fe;font-size:1.08em;outline:none;transition:border 0.2s;box-shadow:0 2px 8px rgba(99,102,241,0.06);"></textarea>
+            </div>
+            <div style="margin-bottom: 28px;">
+                <label for="image" style="font-weight:600; color:#6366f1; margin-bottom:6px; display:block;">Course Image</label>
+                <input type="file" id="image" name="image" accept="image/*" style="width:100%;padding:10px 0;">
             </div>
             <div style="display: flex; justify-content: center;">
                 <button type="submit" style="background: linear-gradient(90deg,#6366f1 60%,#22d3ee 100%); color: #fff; font-weight: 700; font-size: 1.15em; padding: 12px 38px; border: none; border-radius: 10px; box-shadow: 0 4px 16px rgba(99,102,241,0.13); transition: background 0.2s, box-shadow 0.2s; cursor:pointer;">Add Course</button>

@@ -1,54 +1,163 @@
 {% extends 'coaching/base.html' %}
 {% block title %}Teacher Dashboard | CoachingMS{% endblock %}
 {% block content %}
-<div style="position:relative; min-height:60vh; display:flex; align-items:center; justify-content:center;">
-    <div style="position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:0; text-align:center; pointer-events:none;">
-        <span style="font-size:4em; color:#e0e7ff; font-weight:800; opacity:0.5; user-select:none;">Welcome, {{ request.user.first_name|default:request.user.username }}</span>
+<div class="teacher-dashboard-bg">
+    <div class="teacher-dashboard-welcome">
+        <span>Welcome, {{ request.user.first_name|default:request.user.username }}</span>
     </div>
-    <div class="container" style="max-width: 700px; margin: 0 auto; background: #fff; border-radius: 1.5rem; box-shadow: 0 6px 32px rgba(99,102,241,0.10); padding: 40px 28px 32px 28px; position:relative; z-index:1;">
-        <h1 style="font-size:2.1em; color:#6366f1; font-weight:700; margin-bottom:18px; text-align:center;">Teacher Dashboard</h1>
-        <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center; margin-top:18px;">
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#6366f1;">Mark Attendance</h3>
+    <div class="teacher-dashboard-container">
+        <h1 class="teacher-dashboard-title">Teacher Dashboard</h1>
+        <div class="teacher-dashboard-cards">
+            <div class="teacher-dashboard-card">
+                <h3>Mark Attendance</h3>
                 <p>Take attendance for your classes quickly and easily.</p>
-                <a href="{% url 'mark_attendance' %}" class="cta" style="display:inline-block; margin-top:10px;">Mark Attendance</a>
+                <a href="{% url 'mark_attendance' %}" class="cta">Mark Attendance</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">View Analytics</h3>
+            <div class="teacher-dashboard-card">
+                <h3>View Analytics</h3>
                 <p>Analyze student performance and attendance trends.</p>
-                <a href="{% url 'view_analytics' %}" class="cta" style="display:inline-block; margin-top:10px;">View Analytics</a>
+                <a href="{% url 'view_analytics' %}" class="cta">View Analytics</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#6366f1;">Upload Study Material</h3>
+            <div class="teacher-dashboard-card">
+                <h3>Upload Study Material</h3>
                 <p>Share notes, resources, and study material with students.</p>
-                <a href="{% url 'study_materials' %}" class="cta" style="display:inline-block; margin-top:10px;">Upload/View Material</a>
+                <a href="{% url 'study_materials' %}" class="cta">Upload/View Material</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Assignments</h3>
+            <div class="teacher-dashboard-card">
+                <h3>Assignments</h3>
                 <p>Manage and assign homework or projects to your students.</p>
-                <a href="{% url 'assignments_list' %}" class="cta" style="display:inline-block; margin-top:10px;">Assignments</a>
-                <a href="{% url 'upload_assignment' %}" class="cta" style="display:inline-block; margin-top:10px;">Upload Assignment</a>
+                <a href="{% url 'assignments_list' %}" class="cta">Assignments</a>
+                <a href="{% url 'upload_assignment' %}" class="cta">Upload Assignment</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Results</h3>
+            <div class="teacher-dashboard-card">
+                <h3>Results</h3>
                 <p>Upload and view student results.</p>
-                <a href="{% url 'results_view' %}" class="cta" style="display:inline-block; margin-top:10px;">View Results</a>
-                <a href="{% url 'upload_result' %}" class="cta" style="display:inline-block; margin-top:10px;">Upload Result</a>
+                <a href="{% url 'results_view' %}" class="cta">View Results</a>
+                <a href="{% url 'upload_result' %}" class="cta">Upload Result</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Total Students/Courses</h3>
+            <div class="teacher-dashboard-card">
+                <h3>Total Students/Courses</h3>
                 <p style="font-size:1.2em; margin:10px 0 0 0; color:#334155;">
                     <b>{{ students_count }}</b> Students<br>
                     <b>{{ courses_count }}</b> Courses
                 </p>
-                <a href="{% url 'teacher_list' %}" class="cta" style="display:inline-block; margin-top:10px;">View List</a>
+                <a href="{% url 'teacher_list' %}" class="cta">View List</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Announcements</h3>
+            <div class="teacher-dashboard-card">
+                <h3>Announcements</h3>
                 <p>Upload and view announcements for students.</p>
-                <a href="{% url 'announcements_view' %}" class="cta" style="display:inline-block; margin-top:10px;">Announcements</a>
+                <a href="{% url 'announcements_view' %}" class="cta">Announcements</a>
             </div>
         </div>
     </div>
 </div>
+<style>
+.teacher-dashboard-bg {
+    min-height: 60vh;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 0 32px 0;
+}
+.teacher-dashboard-welcome {
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    text-align: center;
+    pointer-events: none;
+}
+.teacher-dashboard-welcome span {
+    font-size: 4em;
+    color: #e0e7ff;
+    font-weight: 800;
+    opacity: 0.5;
+    user-select: none;
+    word-break: break-word;
+}
+.teacher-dashboard-container {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px rgba(99,102,241,0.10);
+    padding: 40px 28px 32px 28px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+.teacher-dashboard-title {
+    font-size: 2.1em;
+    color: #6366f1;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+}
+.teacher-dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 18px;
+}
+.teacher-dashboard-card {
+    flex: 1 1 220px;
+    background: #f1f5f9;
+    border-radius: 1rem;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(99,102,241,0.07);
+    min-width: 180px;
+    max-width: 320px;
+    margin: 0 auto;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+.teacher-dashboard-card:hover {
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(99,102,241,0.18);
+}
+.teacher-dashboard-card h3 {
+    color: #6366f1;
+    font-size: 1.15em;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.teacher-dashboard-card:nth-child(even) h3 {
+    color: #22d3ee;
+}
+.teacher-dashboard-card p {
+    color: #64748b;
+    font-size: 1em;
+    margin-bottom: 8px;
+}
+.teacher-dashboard-card .cta {
+    display: inline-block;
+    margin-top: 10px;
+}
+@media (max-width: 1100px) {
+    .teacher-dashboard-container { max-width: 98vw; padding: 24px 2vw; }
+    .teacher-dashboard-cards { gap: 18px; }
+}
+@media (max-width: 900px) {
+    .teacher-dashboard-container { padding: 18px 4px; }
+    .teacher-dashboard-cards { gap: 18px; }
+}
+@media (max-width: 700px) {
+    .teacher-dashboard-cards { flex-direction: column; gap: 18px; }
+    .teacher-dashboard-card { min-width: 0; max-width: 100%; padding: 18px 4px; }
+    .teacher-dashboard-title { font-size: 1.5em; }
+    .teacher-dashboard-welcome span { font-size: 2em; }
+}
+@media (max-width: 500px) {
+    .teacher-dashboard-container { padding: 8px 0; }
+    .teacher-dashboard-title { font-size: 1.1em; }
+    .teacher-dashboard-welcome span { font-size: 1.1em; }
+}
+</style>
 {% endblock %}

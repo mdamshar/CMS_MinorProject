@@ -1,54 +1,153 @@
 {% extends 'coaching/base.html' %}
 {% block title %}Student Dashboard | CoachingMS{% endblock %}
 {% block content %}
-<div style="position:relative; min-height:60vh; display:flex; align-items:center; justify-content:center;">
-    <div style="position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); z-index:0; text-align:center; pointer-events:none;">
-        <span style="font-size:4em; color:#e0e7ff; font-weight:800; opacity:0.5; user-select:none;">Welcome, {{ request.user.first_name|default:request.user.username }}</span>
+<div class="student-dashboard-bg">
+    <div class="student-dashboard-welcome">
+        <span>Welcome, {{ request.user.first_name|default:request.user.username }}</span>
     </div>
-    <div class="container" style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 1.5rem; box-shadow: 0 6px 32px rgba(99,102,241,0.10); padding: 40px 28px 32px 28px; position:relative; z-index:1;">
-        <h1 style="font-size:2.1em; color:#6366f1; font-weight:700; margin-bottom:18px; text-align:center;">Student Dashboard</h1>
-        <div style="margin-bottom:24px; text-align:center;">
-            <b>Enrolled Courses:</b>
-            <ul style="display:inline-block; text-align:left;">
-                {% for course in enrolled_courses %}
-                    <li>{{ course.name }}</li>
-                {% empty %}
-                    <li>No courses enrolled yet.</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center; margin-top:18px;">
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#6366f1;">Enroll in Courses</h3>
+    <div class="student-dashboard-container">
+        <h1 class="student-dashboard-title">Student Dashboard</h1>
+        <div class="student-dashboard-cards">
+            <div class="student-dashboard-card">
+                <h3>Enroll in Courses</h3>
                 <p>Browse and enroll in available courses.</p>
-                <a href="/courses/" class="cta" style="display:inline-block; margin-top:10px;">Enroll Now</a>
+                <a href="/courses/" class="cta">Enroll Now</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Attendance & Progress</h3>
+            <div class="student-dashboard-card">
+                <h3>Attendance & Progress</h3>
                 <p>Check your attendance and track your progress.</p>
-                <a href="/view-analytics/" class="cta" style="display:inline-block; margin-top:10px;">View Progress</a>
+                <a href="/view-analytics/" class="cta">View Progress</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#6366f1;">Download Resources</h3>
+            <div class="student-dashboard-card">
+                <h3>Download Resources</h3>
                 <p>Access and download study materials shared by teachers.</p>
-                <a href="{% url 'study_materials' %}" class="cta" style="display:inline-block; margin-top:10px;">Resources</a>
+                <a href="{% url 'study_materials' %}" class="cta">Resources</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Assignments</h3>
+            <div class="student-dashboard-card">
+                <h3>Assignments</h3>
                 <p>View and submit your assignments.</p>
-                <a href="{% url 'assignments_list' %}" class="cta" style="display:inline-block; margin-top:10px;">Assignments</a>
+                <a href="{% url 'assignments_list' %}" class="cta">Assignments</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Results</h3>
+            <div class="student-dashboard-card">
+                <h3>Results</h3>
                 <p>View your results and marksheets.</p>
-                <a href="{% url 'results_view' %}" class="cta" style="display:inline-block; margin-top:10px;">Results</a>
+                <a href="{% url 'results_view' %}" class="cta">Results</a>
             </div>
-            <div class="card" style="flex:1 1 220px; background:#f1f5f9; border-radius:1rem; padding:24px 18px; text-align:center; box-shadow:0 2px 12px rgba(99,102,241,0.07);">
-                <h3 style="color:#22d3ee;">Announcements</h3>
+            <div class="student-dashboard-card">
+                <h3>Announcements</h3>
                 <p>Stay updated with the latest announcements.</p>
-                <a href="{% url 'announcements_view' %}" class="cta" style="display:inline-block; margin-top:10px;">View Announcements</a>
+                <a href="{% url 'announcements_view' %}" class="cta">View Announcements</a>
             </div>
         </div>
     </div>
 </div>
+<style>
+.student-dashboard-bg {
+    min-height: 60vh;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 0 32px 0;
+}
+.student-dashboard-welcome {
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    text-align: center;
+    pointer-events: none;
+}
+.student-dashboard-welcome span {
+    font-size: 4em;
+    color: #e0e7ff;
+    font-weight: 800;
+    opacity: 0.5;
+    user-select: none;
+    word-break: break-word;
+}
+.student-dashboard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px rgba(99,102,241,0.10);
+    padding: 40px 28px 32px 28px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+.student-dashboard-title {
+    font-size: 2.1em;
+    color: #6366f1;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+}
+.student-dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 18px;
+}
+.student-dashboard-card {
+    flex: 1 1 220px;
+    background: #f1f5f9;
+    border-radius: 1rem;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(99,102,241,0.07);
+    min-width: 180px;
+    max-width: 320px;
+    margin: 0 auto;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+.student-dashboard-card:hover {
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(99,102,241,0.18);
+}
+.student-dashboard-card h3 {
+    color: #6366f1;
+    font-size: 1.15em;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.student-dashboard-card:nth-child(even) h3 {
+    color: #22d3ee;
+}
+.student-dashboard-card p {
+    color: #64748b;
+    font-size: 1em;
+    margin-bottom: 8px;
+}
+.student-dashboard-card .cta {
+    display: inline-block;
+    margin-top: 10px;
+}
+@media (max-width: 1100px) {
+    .student-dashboard-container { max-width: 98vw; padding: 24px 2vw; }
+    .student-dashboard-cards { gap: 18px; }
+}
+@media (max-width: 900px) {
+    .student-dashboard-container { padding: 18px 4px; }
+    .student-dashboard-cards { gap: 18px; }
+}
+@media (max-width: 700px) {
+    .student-dashboard-cards { flex-direction: column; gap: 18px; }
+    .student-dashboard-card { min-width: 0; max-width: 100%; padding: 18px 4px; }
+    .student-dashboard-title { font-size: 1.5em; }
+    .student-dashboard-welcome span { font-size: 2em; }
+}
+@media (max-width: 500px) {
+    .student-dashboard-container { padding: 8px 0; }
+    .student-dashboard-title { font-size: 1.1em; }
+    .student-dashboard-welcome span { font-size: 1.1em; }
+}
+</style>
 {% endblock %}

@@ -304,16 +304,18 @@
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                         <a href="{% url 'admin_dashboard' %}" class="{% if request.path == '/admin-dashboard/' %}active{% endif %}">Dashboard</a>
+                        <a href="{% url 'logout' %}" style="color:#ef4444;font-weight:700;">Logout</a>
                     {% elif request.user|has_group:'Teachers' %}
                         <a href="{% url 'teacher_dashboard' %}" class="{% if request.path == '/teacher-dashboard/' %}active{% endif %}">Dashboard</a>
+                        <a href="{% url 'logout' %}" style="color:#ef4444;font-weight:700;">Logout</a>
                     {% else %}
                         <a href="{% url 'student_dashboard' %}" class="{% if request.path == '/student-dashboard/' %}active{% endif %}">Dashboard</a>
+                        <a href="{% url 'logout' %}" style="color:#ef4444;font-weight:700;">Logout</a>
                     {% endif %}
-                    <a href="{% url 'about' %}" class="cta {% if request.path == '/about/' %}active{% endif %}">About</a>
-                    <a href="{% url 'logout' %}" style="color:#ef4444;font-weight:700;">Logout</a>
-                {% else %}
+                {% endif %}
+                <a href="{% url 'about' %}" class="cta {% if request.path == '/about/' %}active{% endif %}">About</a>
+                {% if not request.user.is_authenticated %}
                     <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-                    <a href="{% url 'about' %}" class="cta {% if request.path == '/about/' %}active{% endif %}">About</a>
                 {% endif %}
             </div>
         </div>
@@ -331,8 +333,10 @@
     {% block content %}
     <!-- Page content goes here -->
     {% endblock %}
-    <div class="footer">
-        &copy; {{ now|date:"Y" }} Coaching Management System. All rights reserved.
+    <div class="footer" style="text-align:center; white-space:nowrap; overflow-x:auto; display:flex; justify-content:center; align-items:center; gap:6px; font-size:1.08em; background: linear-gradient(90deg, #6366f1 60%, #22d3ee 100%); color: #fff; padding: 24px 0 12px 0; margin-top: 48px; border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem; box-shadow: 0 -4px 24px rgba(99,102,241,0.13);">
+        <span style="color:#fff;">&copy; {{ now|date:"Y" }}</span>
+        <a href="{% url 'about' %}" style="color:#fff;text-decoration:underline;font-weight:600;white-space:nowrap; margin:0 4px;">Coaching Management System</a>
+        <span style="color:#fff;">. All rights reserved.</span>
     </div>
     {% block extra_body %}{% endblock %}
     <script>
